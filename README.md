@@ -55,9 +55,70 @@ Fix application code and answer the questions:
 * (3) Answer the following questions and provide some examples inside the ``Readme.md`` file. 
 
 >  **What bad coding practices did you find? Why is it a bad practice and how did you fix it?**
+Summary of Bad Coding Practices and Fixes
+1. Callback with then:
+ - Issue: Deeply nested .then() calls leading to poor readability and maintainability.
+ - Fix: Used async/await for a more readable asynchronous flow.
+2. Lack of Error Handling:
+ - Issue: No error handling for network failures or unexpected data from API.
+ - Fix: Added try/catch blocks to handle errors, provide meaningful messages, and used placeholders for missing data.
+ bad example 
+   fetch(url).then(function(response) {
+    return response.json();
+}).then(function(data) {
+    fetch(nextUrl).then(function(response) {
+        return response.json();
+    });
+});
+   good example
+   const fetchData = async () => {
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        const nextRes = await fetch(nextUrl);
+        const nextData = await nextRes.json();
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+3. No Validation for Form Fields:
+ - Issue: Form submission allowed without validating input fields.
+ - Fix: Added input validation to ensure the form is only submitted when both fields are filled.
+  bad example
+form.onsubmit = function (e) {
+    e.preventDefault();
+    // No validation for nameField and commentField
+};
+good example
+if (!nameValue || !commentValue) {
+        alert('Please fill out both name and comment fields.');
+        return;
+    }
+4. Potential for Null/Undefined Values:
+ - Issue: Assumed data would always be available, leading to potential runtime errors.
+ - Fix: Used optional chaining and fallback values (like placeholders) when data is missing.
+  bad example
+const imageUrl = Object.values(pages)[0].imageinfo[0].url;
+good example 
+const imageUrl = Object.values(pages)[0]?.imageinfo?.[0]?.url || 'placeholder-image-url.jpg';
+5. Poor Separation of Concerns:
+ - Issue: Combined multiple functionalities (comment handling, API calls, UI updates) into a single
+block of code.
+ - Fix: Separated concerns by modularizing the code, making each function handle a specific task.
+6. Hard-Coded Values Without Fallback:
+ - Issue: Used hard-coded placeholder text like "TODO" without extracting real data.
+ - Fix: Properly extracted the range value from the API data and used fallback text when data is
+missing.
+const rangeMatch = row.match(/\|range=(.*?)\n/);
+const bear = {
+    name: nameMatch[1],
+    binomial: binomialMatch[1],
+    image: imageUrl,
+   bad example =>     range: "TODO extract correct range"
+   good example=>    range: rangeMatch ? rangeMatch[1] : 'Range data not available'
+};
 
-Present your findings here...
-``` JS
+
 console.log('Make use of markdown codesnippets to show and explain good/bad practices!')
 ```
 
