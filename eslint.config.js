@@ -1,7 +1,7 @@
 // eslint.config.js
-import { ESLint } from 'eslint';
+const { ESLint } = require('eslint');
 
-export default [
+module.exports = [
   {
     files: ['src/**/*.{js,ts}'],
     languageOptions: {
@@ -13,7 +13,6 @@ export default [
     rules: {
       'no-unused-vars': 'warn',
       'no-console': 'off',
-      // Add other rules here
     },
   },
 ];
