@@ -1,4 +1,6 @@
-// Functionality for showing/hiding the comments section
+import './style.css';
+//     <script src="bundle.js"></script>Functionality for showing/hiding the comments section
+
 const showHideBtn = document.querySelector(
   '.show-hide'
 ) as HTMLButtonElement | null;
