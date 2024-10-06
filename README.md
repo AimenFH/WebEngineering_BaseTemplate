@@ -172,8 +172,69 @@ Apply the following ruleset for Prettier:
 ```
 
 >  **What improvements in your codebase were introduced by using TS instead of JS? Name at least 3 and explain why.**
+1- Type Safety
+ when querying the DOM elements using querySelector, you specify the type of the element, ensuring that the correct type is used when interacting with them.
+example :
+> const showHideBtn = document.querySelector(
+  '.show-hide'
+) as HTMLButtonElement | null;
+const commentWrapper = document.querySelector(
+  '.comment-wrapper'
+) as HTMLDivElement | null;
+Benefit:  reducing the chances of runtime errors due to invalid types
 
-Present your findings here...
+2-Improved Readability and Maintainability through Interfaces
+Defining an explicit structure for the bears’ data allows the developer to understand the data flow better and enforces consistency throughout the code
+example: 
+interface Bear {
+  name: string;
+  binomial: string;
+  image: string;
+  range: string;
+}
+
+const bears: Bear[] = [];
+Benefit:  Interfaces make the code more predictable by specifying the expected shape of objects.
+This improves the ability to refactor code, as TypeScript will automatically highlight where the interface is not adhered to.
+
+3- Better Error Handling and Fallbacks
+In the case of fetchImageUrl, TypeScript helps enforce that the function will always return a string, even if the fetch fails (due to the fallback of the placeholder image).
+example: 
+const fetchImageUrl = async (fileName: string): Promise<string> => {
+  const imageParams: Record<string, string> = {
+    action: 'query',
+    titles: `File:${fileName}`,
+    prop: 'imageinfo',
+    iiprop: 'url',
+    format: 'json',
+    origin: '*',
+  };
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    const imageUrl = Object.values(data.query.pages)[0]?.imageinfo?.[0]?.url;
+    return imageUrl || 'placeholder-image-url.jpg'; // Fallback in case of missing image
+  } catch (error) {
+    console.error('Failed to fetch image URL:', error);
+    return 'placeholder-image-url.jpg'; // Return placeholder on error
+  }
+};
+Benefit:  This makes error handling more robust and ensures that the function never returns undefined or an unexpected value.
+
+4- Enhanced Code Intellisense and Auto-Completion
+ This is particularly helpful when working with complex objects, third-party libraries
+ example:
+ const list = document.querySelector(
+  '.comment-container'
+) as HTMLUListElement | null;
+
+if (list) {
+  list.appendChild(listItem); // TypeScript provides auto-completion here
+}
+Benefit:  With JavaScript, you might not get helpful suggestions when interacting with the DOM or third-party APIs, increasing the likelihood of errors (e.g., calling methods that don't exist or misusing data).
+TypeScript enhances the IDE experience by suggesting the correct methods and properties based on the types, making it easier to discover available functionality.
+
 
 ## 3.	CI/CD Pipeline Playground (5 Pts.)
 Implementation of a CI/CD pipeline to automate the development and deployment process – write automated tests.
