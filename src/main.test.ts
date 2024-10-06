@@ -11,6 +11,7 @@ describe('Main functionality', () => {
   let list: HTMLUListElement;
   let fetchMock: jest.MockedFunction<typeof fetch>;
 
+  
   beforeEach(() => {
     document.body.innerHTML = `
       <button class="show-hide">Show comments</button>
