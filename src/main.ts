@@ -152,7 +152,7 @@ const extractBears = async (wikitext: string) => {
 };
 
 // Function to get bear data with error handling
-const getBearData = async () => {
+export const getBearData = async () => {
   const url = `${baseUrl}?${new URLSearchParams(params).toString()}`;
 
   try {
