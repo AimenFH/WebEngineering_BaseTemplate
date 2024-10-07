@@ -1,3 +1,7 @@
+if (typeof structuredClone === 'undefined') {
+    global.structuredClone = (obj) => JSON.parse(JSON.stringify(obj));
+}
+
 const tsPlugin = require('@typescript-eslint/eslint-plugin');
 const tsParser = require('@typescript-eslint/parser');
 const prettierPlugin = require('eslint-plugin-prettier');
