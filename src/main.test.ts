@@ -1,4 +1,3 @@
-// src/main.test.ts
 import { describe, it, expect, beforeEach, jest } from '@jest/globals';
 import { getBearData } from './main'; // Ensure you import the function to be tested
 
@@ -11,7 +10,6 @@ describe('Main functionality', () => {
   let list: HTMLUListElement;
   let fetchMock: jest.MockedFunction<typeof fetch>;
 
-  
   beforeEach(() => {
     document.body.innerHTML = `
       <button class="show-hide">Show comments</button>
