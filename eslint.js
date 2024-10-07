@@ -18,7 +18,8 @@ module.exports = {
         'standard-with-typescript',
         'plugin:@typescript-eslint/recommended',
         'plugin:prettier/recommended',
-        'prettier'
+        'prettier',
+        'eslint:recommended', // Uses the recommended rules from ESLint
     ],
     rules: {
         'prettier/prettier': 'error', // Enforces Prettier rules as ESLint errors
