@@ -24,6 +24,7 @@ module.exports = {
         'prettier/prettier': 'error', // Enforces Prettier rules as ESLint errors
         '@typescript-eslint/no-unused-vars': 'warn', // Warns about unused variables
         'no-console': 'off', // Allows console statements
+        'no-unused-vars': 'off',
     },
     settings: {
         'import/resolver': {
