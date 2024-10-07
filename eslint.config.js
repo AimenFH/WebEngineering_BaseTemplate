@@ -1,4 +1,8 @@
 // eslint.config.js
+if (typeof structuredClone === 'undefined') {
+  global.structuredClone = (obj) => JSON.parse(JSON.stringify(obj));
+}
+
 const { ESLint } = require('eslint');
 
 module.exports = [
