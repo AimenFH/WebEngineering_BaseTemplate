@@ -282,11 +282,11 @@ Description: Ensure the complementary landmark or <aside> is at the top level.
 Help: The <aside> should not be contained in another landmark.
 Help URL: Landmark Complementary Is Top Level
 
-solution:
-We made several changes to improve the accessibility and readability of the project:  
+solution 
 HTML: Added a lang attribute to the <html> tag, included a level-one heading <h1>, and ensured all content is contained within appropriate landmark elements like <header>, <main>, and <footer>. Also, added alt attributes to all <img> tags.  
 TypeScript: Updated the script to handle form submissions and toggle comment visibility. Added error handling for missing DOM elements and ensured the script fetches and displays bear data correctly.  
 CSS: Adjusted the color scheme to ensure sufficient contrast between text and background colors. Changed the dark green background to a lighter teal for better readability and updated other colors to maintain a cohesive look.
+
 
 **(0.5) Semantic HTML**
 
