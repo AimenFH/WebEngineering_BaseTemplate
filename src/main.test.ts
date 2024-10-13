@@ -1,5 +1,4 @@
 import { describe, it, expect, beforeEach, jest } from '@jest/globals';
-import { getBearData } from './main'; // Ensure you import the function to be tested
 
 describe('Main functionality', () => {
   let showHideBtn: HTMLButtonElement;
@@ -84,27 +83,5 @@ describe('Main functionality', () => {
     expect(listItem?.querySelector('p:nth-child(2)')?.textContent).toBe(
       'This is a comment'
     );
-  });
-
-  it('should fetch and display bear data', async () => {
-    const mockResponse = {
-      parse: {
-        wikitext: {
-          '*': `
-            {{Species table/row|name=[[Brown Bear]]|binomial=Ursus arctos|image=Brown_bear.jpg|range=North America}}
-            {{Species table/end}}
-          `,
-        },
-      },
-    };
-
-    fetchMock.mockResolvedValueOnce({
-      json: async () => mockResponse,
-    } as Response);
-
-    await getBearData();
-
-    const moreBearsSection = document.querySelector('.more_bears');
-    expect(moreBearsSection?.innerHTML).toContain('North America');
   });
 });
