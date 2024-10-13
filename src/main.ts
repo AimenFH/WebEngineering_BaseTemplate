@@ -1,24 +1,34 @@
 import './style.css';
 
 // Functionality for showing/hiding the comments section
-const showHideBtn = document.querySelector('.show-hide') as HTMLButtonElement | null;
-const commentWrapper = document.querySelector('.comment-wrapper') as HTMLDivElement | null;
+const showHideBtn = document.querySelector(
+  '.show-hide'
+) as HTMLButtonElement | null;
+const commentWrapper = document.querySelector(
+  '.comment-wrapper'
+) as HTMLDivElement | null;
 
 if (!showHideBtn || !commentWrapper) {
   console.error('Required elements not found in the DOM');
 } else {
   showHideBtn.addEventListener('click', () => {
     const showHideText = showHideBtn.textContent?.trim() || '';
-    showHideBtn.textContent = showHideText === 'Show comments' ? 'Hide comments' : 'Show comments';
-    commentWrapper.style.display = showHideText === 'Show comments' ? 'none' : 'block';
+    showHideBtn.textContent =
+      showHideText === 'Show comments' ? 'Hide comments' : 'Show comments';
+    commentWrapper.style.display =
+      showHideText === 'Show comments' ? 'none' : 'block';
   });
 }
 
 // Functionality for adding a new comment via the comments form
 const form = document.querySelector('.comment-form') as HTMLFormElement | null;
 const nameField = document.querySelector('#name') as HTMLInputElement | null;
-const commentField = document.querySelector('#comment') as HTMLTextAreaElement | null;
-const list = document.querySelector('.comment-container') as HTMLUListElement | null;
+const commentField = document.querySelector(
+  '#comment'
+) as HTMLTextAreaElement | null;
+const list = document.querySelector(
+  '.comment-container'
+) as HTMLUListElement | null;
 
 if (!form || !nameField || !commentField || !list) {
   console.error('Required form elements are missing from the DOM.');
@@ -125,7 +135,9 @@ const extractBears = async (wikitext: string) => {
   }
 
   // Update UI with bear data
-  const moreBearsSection = document.querySelector('.more_bears') as HTMLDivElement | null;
+  const moreBearsSection = document.querySelector(
+    '.more_bears'
+  ) as HTMLDivElement | null;
   if (moreBearsSection) {
     bears.forEach((bear) => {
       moreBearsSection.innerHTML += `
