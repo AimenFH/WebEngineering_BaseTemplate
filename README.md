@@ -258,8 +258,29 @@ Use the tools presented in our accessibility workshop to test the accessibility 
 **(0.5) Color** 
 
 Test the current color contrast (text/background), report the results of the test, and then fix them by changing the assigned colors.
+Color Contrast
+Impact: Serious
+Description: Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds.
+Help: Elements must meet minimum color contrast ratio thresholds.
+Help URL: Color Contrast
 
-*Present your reports here.*
+ HTML Has Lang
+Impact: Serious
+Description: Ensure every HTML document has a lang attribute.
+Help: The <html> element must have a lang attribute.
+Help URL: HTML Has Lang
+
+Image Alt
+Impact: Critical
+Description: Ensure <img> elements have alternate text or a role of none or presentation.
+Help: Images must have alternate text.
+Help URL: Image Alt
+
+Landmark Complementary Is Top Level
+Impact: Moderate
+Description: Ensure the complementary landmark or <aside> is at the top level.
+Help: The <aside> should not be contained in another landmark.
+Help URL: Landmark Complementary Is Top Level
 
 **(0.5) Semantic HTML**
 
