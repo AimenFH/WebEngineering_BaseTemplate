@@ -55,9 +55,70 @@ Fix application code and answer the questions:
 * (3) Answer the following questions and provide some examples inside the ``Readme.md`` file. 
 
 >  **What bad coding practices did you find? Why is it a bad practice and how did you fix it?**
+Summary of Bad Coding Practices and Fixes
+1. Callback with then:
+ - Issue: Deeply nested .then() calls leading to poor readability and maintainability.
+ - Fix: Used async/await for a more readable asynchronous flow.
+2. Lack of Error Handling:
+ - Issue: No error handling for network failures or unexpected data from API.
+ - Fix: Added try/catch blocks to handle errors, provide meaningful messages, and used placeholders for missing data.
+ bad example 
+   fetch(url).then(function(response) {
+    return response.json();
+}).then(function(data) {
+    fetch(nextUrl).then(function(response) {
+        return response.json();
+    });
+});
+   good example
+   const fetchData = async () => {
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        const nextRes = await fetch(nextUrl);
+        const nextData = await nextRes.json();
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+3. No Validation for Form Fields:
+ - Issue: Form submission allowed without validating input fields.
+ - Fix: Added input validation to ensure the form is only submitted when both fields are filled.
+  bad example
+form.onsubmit = function (e) {
+    e.preventDefault();
+    // No validation for nameField and commentField
+};
+good example
+if (!nameValue || !commentValue) {
+        alert('Please fill out both name and comment fields.');
+        return;
+    }
+4. Potential for Null/Undefined Values:
+ - Issue: Assumed data would always be available, leading to potential runtime errors.
+ - Fix: Used optional chaining and fallback values (like placeholders) when data is missing.
+  bad example
+const imageUrl = Object.values(pages)[0].imageinfo[0].url;
+good example 
+const imageUrl = Object.values(pages)[0]?.imageinfo?.[0]?.url || 'placeholder-image-url.jpg';
+5. Poor Separation of Concerns:
+ - Issue: Combined multiple functionalities (comment handling, API calls, UI updates) into a single
+block of code.
+ - Fix: Separated concerns by modularizing the code, making each function handle a specific task.
+6. Hard-Coded Values Without Fallback:
+ - Issue: Used hard-coded placeholder text like "TODO" without extracting real data.
+ - Fix: Properly extracted the range value from the API data and used fallback text when data is
+missing.
+const rangeMatch = row.match(/\|range=(.*?)\n/);
+const bear = {
+    name: nameMatch[1],
+    binomial: binomialMatch[1],
+    image: imageUrl,
+   bad example =>     range: "TODO extract correct range"
+   good example=>    range: rangeMatch ? rangeMatch[1] : 'Range data not available'
+};
 
-Present your findings here...
-``` JS
+
 console.log('Make use of markdown codesnippets to show and explain good/bad practices!')
 ```
 
@@ -111,8 +172,69 @@ Apply the following ruleset for Prettier:
 ```
 
 >  **What improvements in your codebase were introduced by using TS instead of JS? Name at least 3 and explain why.**
+1- Type Safety
+ when querying the DOM elements using querySelector, you specify the type of the element, ensuring that the correct type is used when interacting with them.
+example :
+> const showHideBtn = document.querySelector(
+  '.show-hide'
+) as HTMLButtonElement | null;
+const commentWrapper = document.querySelector(
+  '.comment-wrapper'
+) as HTMLDivElement | null;
+Benefit:  reducing the chances of runtime errors due to invalid types
 
-Present your findings here...
+2-Improved Readability and Maintainability through Interfaces
+Defining an explicit structure for the bears’ data allows the developer to understand the data flow better and enforces consistency throughout the code
+example: 
+interface Bear {
+  name: string;
+  binomial: string;
+  image: string;
+  range: string;
+}
+
+const bears: Bear[] = [];
+Benefit:  Interfaces make the code more predictable by specifying the expected shape of objects.
+This improves the ability to refactor code, as TypeScript will automatically highlight where the interface is not adhered to.
+
+3- Better Error Handling and Fallbacks
+In the case of fetchImageUrl, TypeScript helps enforce that the function will always return a string, even if the fetch fails (due to the fallback of the placeholder image).
+example: 
+const fetchImageUrl = async (fileName: string): Promise<string> => {
+  const imageParams: Record<string, string> = {
+    action: 'query',
+    titles: `File:${fileName}`,
+    prop: 'imageinfo',
+    iiprop: 'url',
+    format: 'json',
+    origin: '*',
+  };
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    const imageUrl = Object.values(data.query.pages)[0]?.imageinfo?.[0]?.url;
+    return imageUrl || 'placeholder-image-url.jpg'; // Fallback in case of missing image
+  } catch (error) {
+    console.error('Failed to fetch image URL:', error);
+    return 'placeholder-image-url.jpg'; // Return placeholder on error
+  }
+};
+Benefit:  This makes error handling more robust and ensures that the function never returns undefined or an unexpected value.
+
+4- Enhanced Code Intellisense and Auto-Completion
+ This is particularly helpful when working with complex objects, third-party libraries
+ example:
+ const list = document.querySelector(
+  '.comment-container'
+) as HTMLUListElement | null;
+
+if (list) {
+  list.appendChild(listItem); // TypeScript provides auto-completion here
+}
+Benefit:  With JavaScript, you might not get helpful suggestions when interacting with the DOM or third-party APIs, increasing the likelihood of errors (e.g., calling methods that don't exist or misusing data).
+TypeScript enhances the IDE experience by suggesting the correct methods and properties based on the types, making it easier to discover available functionality.
+
 
 ## 3.	CI/CD Pipeline Playground (5 Pts.)
 Implementation of a CI/CD pipeline to automate the development and deployment process – write automated tests.
