@@ -286,7 +286,9 @@ solution
 HTML: Added a lang attribute to the <html> tag, included a level-one heading <h1>, and ensured all content is contained within appropriate landmark elements like <header>, <main>, and <footer>. Also, added alt attributes to all <img> tags.  
 TypeScript: Updated the script to handle form submissions and toggle comment visibility. Added error handling for missing DOM elements and ensured the script fetches and displays bear data correctly.  
 CSS: Adjusted the color scheme to ensure sufficient contrast between text and background colors. Changed the dark green background to a lighter teal for better readability and updated other colors to maintain a cohesive look.
+*Present your reports here.*
 
+----------------------------------------------
 
 **(0.5) Semantic HTML**
 
