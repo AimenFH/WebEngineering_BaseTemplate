@@ -2,10 +2,10 @@ import './style.css';
 
 // Functionality for showing/hiding the comments section
 const showHideBtn = document.querySelector(
-  '.show-hide'
+    '.show-hide'
 ) as HTMLButtonElement | null;
 const commentWrapper = document.querySelector(
-  '.comment-wrapper'
+    '.comment-wrapper'
 ) as HTMLDivElement | null;
 
 if (!showHideBtn || !commentWrapper) {
@@ -14,9 +14,9 @@ if (!showHideBtn || !commentWrapper) {
   showHideBtn.addEventListener('click', () => {
     const showHideText = showHideBtn.textContent?.trim() || '';
     showHideBtn.textContent =
-      showHideText === 'Show comments' ? 'Hide comments' : 'Show comments';
+        showHideText === 'Show comments' ? 'Hide comments' : 'Show comments';
     commentWrapper.style.display =
-      showHideText === 'Show comments' ? 'none' : 'block';
+        showHideText === 'Show comments' ? 'none' : 'block';
   });
 }
 
@@ -24,10 +24,10 @@ if (!showHideBtn || !commentWrapper) {
 const form = document.querySelector('.comment-form') as HTMLFormElement | null;
 const nameField = document.querySelector('#name') as HTMLInputElement | null;
 const commentField = document.querySelector(
-  '#comment'
+    '#comment'
 ) as HTMLTextAreaElement | null;
 const list = document.querySelector(
-  '.comment-container'
+    '.comment-container'
 ) as HTMLUListElement | null;
 
 if (!form || !nameField || !commentField || !list) {
@@ -136,7 +136,7 @@ const extractBears = async (wikitext: string) => {
 
   // Update UI with bear data
   const moreBearsSection = document.querySelector(
-    '.more_bears'
+      '.more_bears'
   ) as HTMLDivElement | null;
   if (moreBearsSection) {
     bears.forEach((bear) => {
