@@ -1,52 +1,10 @@
-name: Deployment Workflow
+name: Development Workflow
 
 on:
   push:
     branches:
-<<<<<<< Updated upstream
-      - '**'
+      - development
 
 jobs:
   test-and-lint:
-=======
-      - main
-
-jobs:
-  build-and-deploy:
->>>>>>> Stashed changes
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-<<<<<<< Updated upstream
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run ESLint with fix
-        run: npm run lint:fix
-
-      - name: Run tests
-        run: npm run test
-
-      - name: Run linter
-        run: npm run lint
-=======
-      - name: Call reusable workflow
-        uses: ./.github/workflows/common-steps.yml
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
->>>>>>> Stashed changes
+    uses: ./.github/workflows/common-steps.yml
