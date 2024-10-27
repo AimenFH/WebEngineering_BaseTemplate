@@ -8,3 +8,5 @@ on:
 jobs:
   test-and-lint:
     uses: ./.github/workflows/common-steps.yml
+    with:
+      ref: main
