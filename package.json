@@ -12,7 +12,8 @@
     "dev": "webpack serve --config webpack.dev.cjs",
     "build": "webpack --config webpack.prod.cjs",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "preinstall": "npx npm-force-resolutions"
   },
   "keywords": [],
   "author": "",
@@ -33,13 +34,14 @@
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^25.0.1",
     "lint-staged": "^15.2.10",
+    "npm-force-resolutions": "^0.0.3",
     "prettier": "^3.3.3",
     "sass": "^1.79.4",
     "sass-loader": "^16.0.2",
     "style-loader": "^4.0.0",
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.5.0",
+    "typescript": "^5.5.1",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.1.0",
@@ -57,5 +59,8 @@
     "node-fetch": "^3.3.2",
     "puppeteer": "^23.5.3",
     "vitest": "^2.1.2"
+  },
+  "resolutions": {
+    "typescript": "5.5.1"
   }
 }
