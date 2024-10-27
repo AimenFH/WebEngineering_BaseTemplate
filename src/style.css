@@ -40,12 +40,17 @@ h3 {
   color: #333333;
 }
 
-p, input, li, table, label {
+input, li, table, label {
   font-size: 1.6rem;
   line-height: 1.5;
   color: #333333;
 }
 
+p {
+  font-size: 1.8rem; /* Increase font size */
+  line-height: 1.8;  /* Increase line height */
+  padding: 10px 0;   /* Add padding for better spacing */
+}
 /* Navigation */
 nav {
   background-color: #009688;
