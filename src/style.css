@@ -1,13 +1,13 @@
-/* || General setup */
-
+/* General Setup */
 html, body {
   margin: 0;
   padding: 0;
+  font-family: 'Open Sans Condensed', sans-serif;
 }
 
 html {
   font-size: 10px;
-  background-color: #dde;
+  background-color: #f0f0f0;
 }
 
 body {
@@ -16,130 +16,118 @@ body {
   margin: 0 auto;
 }
 
-/* || typography */
-
-font[size="7"], font[size="6"], font[size="5"] {
+/* Typography */
+h1, h2, h3 {
   font-family: 'Sonsie One', cursive;
-  color: #2a2a2a;
+  color: #333333;
 }
 
-p, input, li, table, label {
-  font-family: 'Open Sans Condensed', sans-serif;
-  color: #2a2a2a;
-}
-
-font[size="7"] {
+h1 {
   font-size: 4rem;
   text-align: center;
-  color: white;
-  text-shadow: 2px 2px 10px black;
+  color: #ffffff;
+  text-shadow: 2px 2px 10px #000000;
 }
 
-font[size="6"] {
+h2 {
   font-size: 3rem;
   text-align: center;
+  color: #333333;
 }
 
-font[size="5"] {
+h3 {
   font-size: 2.2rem;
+  color: #333333;
 }
 
-p, li, table {
+input, li, table, label {
   font-size: 1.6rem;
   line-height: 1.5;
+  color: #333333;
 }
 
-/* || header layout */
-
-div[class="nav"], article, footer, .secondary {
-  background-color: green;
+p {
+  font-size: 1.8rem; /* Increase font size */
+  line-height: 1.8;  /* Increase line height */
+  padding: 10px 0;   /* Add padding for better spacing */
 }
-
-article, footer, .secondary {
-  padding: 10px 30px;
-}
-
-article {
-  margin-right: 10px;
-}
-
-div[class="nav"] {
-  height: 50px;
-  background-color: ff80ff;
+/* Navigation */
+nav {
+  background-color: #009688;
   display: flex;
   padding: 1% 0;
   margin-bottom: 10px;
 }
 
-div[class="nav"] ul {
-  padding: 0;
-  list-style-type: none;
+nav ul {
   flex: 2;
   display: flex;
+  padding: 0;
+  list-style-type: none;
 }
 
-div[class="nav"] li {
-  display: inline;
-  text-align: center;
+nav li {
   flex: 1;
+  text-align: center;
 }
 
-div[class="nav"] a {
-  display: inline-block;
+nav a {
   font-size: 2rem;
   text-transform: uppercase;
   text-decoration: none;
-  color: black;
+  color: #ffffff;
 }
 
-div[class="nav"] .search {
+/* Search form */
+.search {
   flex: 1;
   display: flex;
   align-items: center;
-  height: 100%;
-  padding: 0 2em;
-}
-
-.search input {
-  font-size: 1.6rem;
-  height: 32px;
 }
 
 .search input[type="search"] {
   flex: 3;
+  font-size: 1.6rem;
+  height: 32px;
 }
 
 .search input[type="submit"] {
   flex: 1;
   margin-left: 1rem;
-  background: #333;
-  border: 0;
-  color: white;
+  background: #00796b;
+  border: none;
+  color: #ffffff;
 }
 
-/* || main layout */
-
+/* Main Layout */
 main {
   display: flex;
 }
 
 article {
   flex: 5;
+  padding: 10px 30px;
+  background-color: #00796b;
 }
 
 .secondary {
   flex: 2;
+  background-color: #00796b;
+  padding: 10px 30px;
 }
 
 footer {
   margin-top: 10px;
+  padding: 10px 30px;
+  background-color: #00796b;
+  text-align: center;
+  color: #ffffff;
 }
 
-/* Table styling */
-
+/* Table Styling */
 table {
   width: 100%;
-  background-color: #dde;
+  background-color: #ffffff;
   border-collapse: collapse;
 }
 
@@ -147,20 +135,15 @@ th, td {
   padding: 10px;
 }
 
-td {
-  text-align: center;
-}
-
-th[scope="col"] {
-  border-bottom: 1px solid black;
+th {
+  border-bottom: 1px solid #666666;
 }
 
 tbody tr:nth-child(odd) {
-  background-color: #def;
+  background-color: #e0f2f1;
 }
 
-/* styling content images and audio */
-
+/* Styling for images and audio */
 img, audio {
   display: block;
   margin: 0 auto;
@@ -170,23 +153,20 @@ audio {
   width: 500px;
 }
 
-/* Comments styling */
-
+/* Comments Section */
 .comments {
-  background-color: #def;
+  background-color: #e0f2f1;
   padding: 10px;
 }
 
 .show-hide {
   cursor: pointer;
-}
-
-.comments font[size="6"] {
-  font-size: 2rem;
-}
-
-.comments font[size="6"]:nth-of-type(2) {
-  margin-bottom: 0;
+  text-align: center;
+  font-size: 1.6rem;
+  background: #00796b;
+  color: #ffffff;
+  width: 150px;
+  margin: 10px auto;
 }
 
 .comment-form {
@@ -209,26 +189,13 @@ audio {
   flex: 6;
 }
 
-.show-hide {
-  text-align: center;
-  width: 150px;
-}
-
-.comment-form input, .comment-form label, .show-hide {
-  font-size: 1.6rem;
-  line-height: 32px;
-}
-
-.comment-form input[type="submit"], .show-hide {
-  background: #333;
-  border: 0;
-  color: white;
-}
-
 .comment-form input[type="submit"] {
   width: 30%;
   display: block;
   margin: 0 auto;
+  background: #00796b;
+  border: none;
+  color: #ffffff;
 }
 
 .comment-container {
@@ -240,11 +207,32 @@ audio {
   display: flex;
 }
 
-.comment-container li p:nth-child(1) {
+.comment-container li p:first-of-type {
   flex: 1;
   font-weight: bold;
 }
 
-.comment-container li p:nth-child(2) {
+.comment-container li p:nth-of-type(2) {
   flex: 5;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.visually-hidden-tabel {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
