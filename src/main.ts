@@ -172,6 +172,5 @@ export const getBearData = async () => {
     alert('Failed to load bear data. Please try again later.');
   }
 };
-
 // Fetch and display the bear data
 getBearData();
