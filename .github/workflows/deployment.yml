@@ -1,11 +1,12 @@
-name: Deployment Workflow
+name: Development Workflow
 
 on:
   push:
     branches:
-      - main
+      - development
 
 jobs:
+<<<<<<< Updated upstream
   build-and-deploy:
     runs-on: ubuntu-latest
 
@@ -35,3 +36,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+=======
+  test-and-lint:
+    uses: ./.github/workflows/common-steps.yml
+>>>>>>> Stashed changes
