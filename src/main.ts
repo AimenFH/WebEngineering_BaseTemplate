@@ -11,12 +11,19 @@ const commentWrapper = document.querySelector(
 if (!showHideBtn || !commentWrapper) {
   console.error('Required elements not found in the DOM');
 } else {
-  showHideBtn.addEventListener('click', () => {
+  const toggleCommentsVisibility = () => {
     const showHideText = showHideBtn.textContent?.trim() || '';
     showHideBtn.textContent =
       showHideText === 'Show comments' ? 'Hide comments' : 'Show comments';
     commentWrapper.style.display =
       showHideText === 'Show comments' ? 'none' : 'block';
+  };
+
+  showHideBtn.addEventListener('click', toggleCommentsVisibility);
+  showHideBtn.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      toggleCommentsVisibility();
+    }
   });
 }
 

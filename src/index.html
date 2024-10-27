@@ -37,7 +37,10 @@
     <h3>Types of Bears</h3>
     <p>Bears come in two varieties...</p>
 
-    <table>
+    <table aria-describedby="table-description">
+      <caption>Bear Data</caption>
+      <p id="table-description" class="visually-hidden">This table shows various types of bears, including their coat, adult size, habitat, lifespan, and diet.</p>
+
       <thead>
       <tr>
         <th scope="col">Bear Type</th>
@@ -49,9 +52,26 @@
       </tr>
       </thead>
       <tbody>
-      <!-- Data rows -->
+      <tr>
+        <td>Grizzly</td>
+        <td>Brown</td>
+        <td>1.8 - 2.4 meters</td>
+        <td>Forests and mountains</td>
+        <td>25 years</td>
+        <td>Fish, berries, small mammals</td>
+      </tr>
+      <tr>
+        <td>Polar</td>
+        <td>White</td>
+        <td>2.4 - 3 meters</td>
+        <td>Arctic regions</td>
+        <td>15-18 years</td>
+        <td>Seals, fish</td>
+      </tr>
+      <!-- Additional rows as needed -->
       </tbody>
     </table>
+
 
     <h3>Habitats and Eating Habits</h3>
     <p>Wild bears eat a variety...</p>
@@ -79,7 +99,7 @@
 
     <section class="comments" aria-labelledby="comments-title">
       <h3 id="comments-title">Comments</h3>
-      <button class="show-hide">Show comments</button>
+      <button class="show-hide" tabindex="0">Show comments</button>
       <form class="comment-form">
         <label for="name">Your name:</label>
         <input type="text" name="name" id="name" placeholder="Enter your name">
