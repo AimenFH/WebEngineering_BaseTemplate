@@ -3,8 +3,9 @@ name: Development Workflow
 on:
   push:
     branches:
-      - '**'
+      - development
 
 jobs:
   test-and-lint:
     uses: AimenFH/WebEngineering_BaseTemplate/.github/workflows/common-steps.yml@main
+
