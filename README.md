@@ -172,6 +172,7 @@ Apply the following ruleset for Prettier:
 ```
 
 >  **What improvements in your codebase were introduced by using TS instead of JS? Name at least 3 and explain why.**
+
 1- Type Safety
  when querying the DOM elements using querySelector, you specify the type of the element, ensuring that the correct type is used when interacting with them.
 example :
