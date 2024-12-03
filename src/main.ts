@@ -1,88 +1,67 @@
 import './style.css';
 
-// Functionality for showing/hiding the comments section
-const showHideBtn = document.querySelector(
-  '.show-hide'
-) as HTMLButtonElement | null;
-const commentWrapper = document.querySelector(
-  '.comment-wrapper'
-) as HTMLDivElement | null;
+// Toggle Comments Section
+const setupCommentToggle = () => {
+  const showHideBtn = document.querySelector('.show-hide');
+  const commentWrapper = document.querySelector('.comment-wrapper');
 
-if (!showHideBtn || !commentWrapper) {
-  console.error('Required elements not found in the DOM');
-} else {
+  if (!showHideBtn || !commentWrapper) {
+    console.error('Required elements not found in the DOM');
+    return;
+  }
+
   const toggleCommentsVisibility = () => {
-    const showHideText = showHideBtn.textContent?.trim() || '';
-    showHideBtn.textContent =
-      showHideText === 'Show comments' ? 'Hide comments' : 'Show comments';
-    commentWrapper.style.display =
-      showHideText === 'Show comments' ? 'none' : 'block';
+    const isVisible = (commentWrapper as HTMLElement).style.display === 'block';
+    (commentWrapper as HTMLElement).style.display = isVisible
+      ? 'none'
+      : 'block';
+    showHideBtn.textContent = isVisible ? 'Show comments' : 'Hide comments';
   };
 
   showHideBtn.addEventListener('click', toggleCommentsVisibility);
   showHideBtn.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
+    const keyboardEvent = event as KeyboardEvent;
+    if (keyboardEvent.key === 'Enter') {
       toggleCommentsVisibility();
     }
   });
-}
-
-// Functionality for adding a new comment via the comments form
-const form = document.querySelector('.comment-form') as HTMLFormElement | null;
-const nameField = document.querySelector('#name') as HTMLInputElement | null;
-const commentField = document.querySelector(
-  '#comment'
-) as HTMLTextAreaElement | null;
-const list = document.querySelector(
-  '.comment-container'
-) as HTMLUListElement | null;
-
-if (!form || !nameField || !commentField || !list) {
-  console.error('Required form elements are missing from the DOM.');
-} else {
-  form.addEventListener('submit', (e: Event) => {
-    e.preventDefault();
-
-    if (nameField && commentField && list) {
-      const listItem = document.createElement('li');
-      const namePara = document.createElement('p');
-      const commentPara = document.createElement('p');
-
-      const nameValue = nameField.value.trim();
-      const commentValue = commentField.value.trim();
-
-      if (nameValue && commentValue) {
-        namePara.textContent = nameValue;
-        commentPara.textContent = commentValue;
-        listItem.append(namePara, commentPara);
-        list.appendChild(listItem);
-
-        // Clear input fields after submission
-        nameField.value = '';
-        commentField.value = '';
-      } else {
-        alert('Please fill out both name and comment fields.');
-      }
-    }
-  });
-}
-
-// Function to fetch the image URLs based on the file names
-const baseUrl = 'https://en.wikipedia.org/w/api.php';
-const title = 'List_of_ursids';
-
-const params: Record<string, string> = {
-  action: 'parse',
-  page: title,
-  prop: 'wikitext',
-  section: '3', // Convert number to string
-  format: 'json',
-  origin: '*',
 };
 
-// Fetch image URLs with error handling and placeholder
-const fetchImageUrl = async (fileName: string): Promise<string> => {
-  const imageParams: Record<string, string> = {
+// Add Comment Functionality
+const setupCommentForm = () => {
+  const form = document.querySelector('.comment-form');
+  const nameField = document.querySelector('#name') as HTMLInputElement;
+  const commentField = document.querySelector('#comment') as HTMLInputElement;
+  const list = document.querySelector('.comment-container');
+
+  if (!form || !nameField || !commentField || !list) {
+    console.error('Required form elements are missing from the DOM.');
+    return;
+  }
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const nameValue = nameField.value.trim();
+    const commentValue = commentField.value.trim();
+
+    if (!nameValue || !commentValue) {
+      alert('Please fill out both name and comment fields.');
+      return;
+    }
+
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `<p>${nameValue}</p><p>${commentValue}</p>`;
+    list.appendChild(listItem);
+
+    nameField.value = '';
+    commentField.value = '';
+  });
+};
+
+// Fetch Image URL
+const fetchImageUrl = async (fileName: string) => {
+  const baseUrl = 'https://en.wikipedia.org/w/api.php';
+  const params = {
     action: 'query',
     titles: `File:${fileName}`,
     prop: 'imageinfo',
@@ -91,32 +70,25 @@ const fetchImageUrl = async (fileName: string): Promise<string> => {
     origin: '*',
   };
 
-  const url = `${baseUrl}?${new URLSearchParams(imageParams).toString()}`;
-
   try {
-    const res = await fetch(url);
-    const data: {
-      query: { pages: Record<string, { imageinfo?: { url: string }[] }> };
-    } = await res.json();
+    const response = await fetch(`${baseUrl}?${new URLSearchParams(params)}`);
+    const data = await response.json();
     const pages = data.query.pages;
-    const imageUrl = Object.values(pages)[0]?.imageinfo?.[0]?.url;
+    const imageInfo = (Object.values(pages)[0] as any)?.imageinfo?.[0]?.url;
 
-    return imageUrl || 'placeholder-image-url.jpg'; // Return placeholder if no URL
+    return imageInfo && imageInfo.startsWith('http')
+      ? imageInfo
+      : 'placeholder-image-url.jpg';
   } catch (error) {
     console.error('Failed to fetch image URL:', error);
-    return 'placeholder-image-url.jpg'; // Return placeholder on error
+    return 'placeholder-image-url.jpg';
   }
 };
 
-// Function to extract bear data from the wikitext with range parsing
+// Extract and Display Bear Data
 const extractBears = async (wikitext: string) => {
   const speciesTables = wikitext.split('{{Species table/end}}');
-  const bears: Array<{
-    name: string;
-    binomial: string;
-    image: string;
-    range: string;
-  }> = [];
+  const bears = [];
 
   for (const table of speciesTables) {
     const rows = table.split('{{Species table/row');
@@ -124,47 +96,53 @@ const extractBears = async (wikitext: string) => {
       const nameMatch = row.match(/\|name=\[\[(.*?)\]\]/);
       const binomialMatch = row.match(/\|binomial=(.*?)\n/);
       const imageMatch = row.match(/\|image=(.*?)\n/);
-      const rangeMatch = row.match(/\|range=(.*?)\n/); // Extracting range
+      const rangeMatch = row.match(/\|range=(.*?)\n/);
 
       if (nameMatch && binomialMatch && imageMatch) {
         const fileName = imageMatch[1].trim().replace('File:', '');
         const imageUrl = await fetchImageUrl(fileName);
 
-        const bear = {
+        bears.push({
           name: nameMatch[1],
           binomial: binomialMatch[1],
           image: imageUrl,
-          range: rangeMatch ? rangeMatch[1] : 'Range data not available',
-        };
-        bears.push(bear);
+          range: rangeMatch
+            ? rangeMatch[1].replace(/\[\[|\]\]/g, '')
+            : 'Range data not available',
+        });
       }
     }
   }
 
-  // Update UI with bear data
-  const moreBearsSection = document.querySelector(
-    '.more_bears'
-  ) as HTMLDivElement | null;
+  const moreBearsSection = document.querySelector('.more_bears');
   if (moreBearsSection) {
     bears.forEach((bear) => {
-      moreBearsSection.innerHTML += `
-        <div>
-          <h3>${bear.name} (${bear.binomial})</h3>
-          <img src="${bear.image}" alt="${bear.name}" style="width:200px; height:auto;">
-          <p><strong>Range:</strong> ${bear.range}</p>
-        </div>
+      const bearElement = document.createElement('div');
+      bearElement.innerHTML = `
+        <h3>${bear.name} (${bear.binomial})</h3>
+        <img src="${bear.image}" alt="${bear.name}" style="width:200px; height:auto;">
+        <p><strong>Range:</strong> ${bear.range}</p>
       `;
+      moreBearsSection.appendChild(bearElement);
     });
   }
 };
 
-// Function to get bear data with error handling
-export const getBearData = async () => {
-  const url = `${baseUrl}?${new URLSearchParams(params).toString()}`;
+// Fetch Bear Data
+const getBearData = async () => {
+  const baseUrl = 'https://en.wikipedia.org/w/api.php';
+  const params = {
+    action: 'parse',
+    page: 'List_of_ursids',
+    prop: 'wikitext',
+    section: '3',
+    format: 'json',
+    origin: '*',
+  };
 
   try {
-    const res = await fetch(url);
-    const data = await res.json();
+    const response = await fetch(`${baseUrl}?${new URLSearchParams(params)}`);
+    const data = await response.json();
     const wikitext = data.parse.wikitext['*'];
     await extractBears(wikitext);
   } catch (error) {
@@ -172,5 +150,12 @@ export const getBearData = async () => {
     alert('Failed to load bear data. Please try again later.');
   }
 };
-// Fetch and display the bear data
-getBearData();
+
+// Initialize Application
+const init = () => {
+  setupCommentToggle();
+  setupCommentForm();
+  getBearData();
+};
+
+init();
