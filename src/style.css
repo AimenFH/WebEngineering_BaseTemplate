@@ -51,6 +51,7 @@ p {
   line-height: 1.8;  /* Increase line height */
   padding: 10px 0;   /* Add padding for better spacing */
 }
+
 /* Navigation */
 nav {
   background-color: #009688;
@@ -215,6 +216,8 @@ audio {
 .comment-container li p:nth-of-type(2) {
   flex: 5;
 }
+
+/* Visually Hidden */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -226,7 +229,7 @@ audio {
   border: 0;
 }
 
-.visually-hidden-tabel {
+.visually-hidden-table {
   position: absolute;
   width: 1px;
   height: 1px;
